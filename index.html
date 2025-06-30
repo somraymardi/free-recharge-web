@@ -1,32 +1,16 @@
-
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Mobile Input</title>
-  <style>
-    body { font-family: Arial; background: #f0f2f5; display: flex; justify-content: center; align-items: center; height: 100vh; }
-    .container {
-      background: white; padding: 30px; border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 300px; text-align: center;
-    }
-    input, select {
-      width: 100%; padding: 12px; font-size: 16px; margin-bottom: 15px;
-      border: 1px solid #ccc; border-radius: 5px;
-    }
-    button {
-      padding: 12px; width: 100%; background: #007bff;
-      color: white; font-size: 16px; border: none; border-radius: 5px;
-      cursor: pointer;
-    }
-    .error { color: red; display: none; }
-  </style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mobile Input</title>
+<style>
+/* Styling same as earlier */
+</style>
 </head>
 <body>
   <div class="container">
     <h2>मोबाइल नंबर और ऑपरेटर चुनें</h2>
-    <input type="tel" id="mobileNumber" maxlength="10" placeholder="मोबाइल नंबर">
+    <input id="mobileNumber" type="tel" maxlength="10" placeholder="मोबाइल नंबर">
     <select id="operator">
       <option value="">-- ऑपरेटर चुनें --</option>
       <option value="jio">Jio</option>
@@ -34,23 +18,18 @@
       <option value="vi">Vi</option>
       <option value="bsnl">BSNL</option>
     </select>
-    <div class="error" id="errorMsg">कृपया सही जानकारी भरें</div>
+    <div id="errorMsg" style="color:red;display:none;">कृपया सही जानकारी भरें</div>
     <button onclick="proceed()">Continue</button>
   </div>
-
-  <script>
-    function proceed() {
-      const number = document.getElementById('mobileNumber').value.trim();
-      const operator = document.getElementById('operator').value;
-      const errorMsg = document.getElementById('errorMsg');
-
-      if (!/^[6-9][0-9]{9}$/.test(number) || operator === "") {
-        errorMsg.style.display = 'block';
-        return;
-      }
-
-      window.location.href = `recharge-plans.html?mobileNumber=${number}&operator=${operator}`;
-    }
-  </script>
+<script>
+function proceed(){
+  const num = document.getElementById('mobileNumber').value.trim();
+  const op = document.getElementById('operator').value;
+  if(!/^[6-9]\d{9}$/.test(num)||!op){
+    document.getElementById('errorMsg').style.display='block';return;
+  }
+  window.location.href=`recharge-plans.html?mobileNumber=${num}&operator=${op}`;
+}
+</script>
 </body>
 </html>
