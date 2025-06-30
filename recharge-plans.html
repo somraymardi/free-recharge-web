@@ -1,2 +1,47 @@
-<html><head><title>Recharge Plans</title></head>
-<body><h1>Recharge Plans Placeholder</h1></body></html>
+<!DOCTYPE html>
+<html lang="hi">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Recharge Plans</title>
+  <style>
+    /* Styling same as earlier */
+  </style>
+</head>
+<body>
+  <h1>Recharge Plans</h1>
+  <div id="userInfo"></div>
+  <div class="plans-container" id="plansContainer"></div>
+<script>
+const url = new URLSearchParams(location.search);
+const mobile = url.get('mobileNumber');
+const operator = url.get('operator');
+document.getElementById("userInfo").innerText = `Mobile: ${mobile} | Operator: ${operator.toUpperCase()}`;
+const plans = {
+  jio: [
+    {price:1,validity:"90 दिन",desc:"5GB high speed, validity 90 Days"},
+    {price:149,validity:"20 दिन",desc:"Jio 1GB/day + JioTV"},
+    {price:198,validity:"22 दिन",desc:"1.5GB/day,33GB total,Unlimited Calls,100 SMS/Day"},
+    {price:199,validity:"28 दिन",desc:"1.5GB/day,27GB total,Unlimited Calls,100 SMS/Day"},
+    {price:239,validity:"28 दिन",desc:"1.5GB/day + OTT"}
+  ],
+  airtel:[{price:155,validity:"24 दिन",desc:"1GB/day + Wynk Music"},{price:265,validity:"28 दिन",desc:"2GB/day + Amazon MiniTV"}],
+  vi:[{price:129,validity:"18 दिन",desc:"1GB/day + Vi Movies"},{price:199,validity:"28 दिन",desc:"1.5GB/day + Weekend Rollover"}],
+  bsnl:[{price:94,validity:"30 दिन",desc:"3GB total + 100 SMS"},{price:199,validity:"60 दिन",desc:"Unlimited Calls + 2GB Data"}],
+  unknown:[{price:99,validity:"28 दिन",desc:"Default Plan"}]
+};
+const list = plans[operator]||plans.unknown;
+const cont=document.getElementById('plansContainer');
+list.forEach(p=>{
+  const div=document.createElement('div');
+  div.innerHTML=`
+    <div>₹${p.price}</div>
+    <div>Validity: ${p.validity}</div>
+    <div>${p.desc}</div>
+    <button onclick="selectPlan(${p.price})">Select</button>`;
+  cont.appendChild(div);
+});
+function selectPlan(price){
+  window.location.href=`payment.html?mobile=${mobile}&amount=${price}`;
+}
+</script>
+</body>
+</html>
